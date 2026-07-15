@@ -8,7 +8,7 @@
         {% if section.settings.logo != blank %}
           {{ section.settings.logo | image_url: width: 320 | image_tag: alt: shop.name, class: 'colab-logo-img' }}
         {% else %}
-          {{ shop.name }}
+          <img class="colab-logo-img" src="{{ 'colab_white.png' | asset_img_url: '320x' }}" srcset="{{ 'colab_white.png' | asset_img_url: '320x' }} 320w, {{ 'colab_white.png' | asset_img_url: '640x' }} 640w" sizes="120px" alt="{{ shop.name }}">
         {% endif %}
       </a>
       <nav class="colab-nav" aria-label="Main navigation">

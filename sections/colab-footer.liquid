@@ -2,7 +2,9 @@
   <div class="colab-container">
     <div class="colab-footer-grid">
       <div>
-        <h4>{{ shop.name }}</h4>
+        <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          <img class="colab-footer-logo" src="{{ 'colab_white.png' | asset_img_url: '320x' }}" srcset="{{ 'colab_white.png' | asset_img_url: '320x' }} 320w, {{ 'colab_white.png' | asset_img_url: '640x' }} 640w" sizes="140px" alt="{{ shop.name }}">
+        </a>
         <p class="colab-footer-tagline">{{ section.settings.tagline }}</p>
         {% if section.settings.location != blank %}
           <p class="colab-footer-location">{{ section.settings.location }}</p>
