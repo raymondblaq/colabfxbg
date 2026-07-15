@@ -94,6 +94,7 @@ img {
 
 .colab-nav {
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2px;
@@ -658,7 +659,7 @@ img {
   .colab-nav {
     order: 3;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     padding-bottom: 8px;
   }
 
