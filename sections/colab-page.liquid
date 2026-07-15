@@ -1,0 +1,24 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">{{ shop.name }}</p>
+        <h1>{{ page.title }}</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-page-card colab-richtext">
+        {{ page.content }}
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Page",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-book-session-page",
+      "settings": {
+        "booking_note": "Choose a session time that works for your schedule and experience the CoLab FXBG space with intention."
+      }
+    }
+  },
+  "order": ["main"]
+}

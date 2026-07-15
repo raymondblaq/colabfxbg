@@ -1,0 +1,83 @@
+<footer class="colab-wrap colab-site-footer">
+  <div class="colab-container">
+    <div class="colab-footer-grid">
+      <div>
+        <h4>{{ shop.name }}</h4>
+        <p class="colab-footer-tagline">{{ section.settings.tagline }}</p>
+        {% if section.settings.location != blank %}
+          <p class="colab-footer-location">{{ section.settings.location }}</p>
+        {% endif %}
+      </div>
+      <div>
+        <p class="colab-footer-heading">Explore</p>
+        <div class="colab-footer-links">
+          {% for link in section.settings.menu.links %}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        <p class="colab-footer-heading">Get Started</p>
+        <div class="colab-footer-links">
+          <a href="/pages/contact">Book a Session</a>
+          <a href="/pages/contact">Memberships</a>
+          <a href="/pages/faq">FAQ</a>
+          <a href="/pages/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <p class="colab-footer-heading">Stay Connected</p>
+        <p class="colab-footer-newsletter-copy">Membership launches, special sessions, and founder-focused updates. No noise.</p>
+        {% form 'customer', id: 'colab-footer-newsletter' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="colab-footer-newsletter-form">
+            <input class="colab-footer-input" type="email" name="contact[email]" placeholder="Email address" aria-label="Email address" autocomplete="email" required>
+            <button class="colab-footer-submit" type="submit">Join</button>
+          </div>
+          {% if form.posted_successfully? %}
+            <div class="colab-footer-form-note">Thanks for joining. You&rsquo;re on the list.</div>
+          {% endif %}
+          {% if form.errors %}
+            <div class="colab-footer-form-note">{{ form.errors | default_errors }}</div>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+    <div class="colab-footer-bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+      {% if shop.policies.size > 0 %}
+        <span class="colab-footer-policies">
+          {% for policy in shop.policies %}
+            <a href="{{ policy.url }}">{{ policy.title }}</a>
+          {% endfor %}
+        </span>
+      {% endif %}
+      <span>Where founders recover, create, and scale.</span>
+    </div>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "CoLab Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "A private performance lounge for entrepreneurs — recovery technology, premium content space, and an environment built for momentum."
+    },
+    {
+      "type": "text",
+      "id": "location",
+      "label": "Location line",
+      "default": "Fredericksburg, Virginia"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer menu",
+      "default": "footer"
+    }
+  ]
+}
+{% endschema %}

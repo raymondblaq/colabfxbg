@@ -1,0 +1,155 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign subheadline = 'A premium membership designed to support recovery, focus, and founder performance.'
+  assign best_for = 'Entrepreneurs, creators, and professionals seeking premium performance support.'
+  assign benefit_1 = 'Better recovery'
+  assign benefit_2 = 'More energy'
+  assign benefit_3 = 'Improved focus'
+  assign faq_1_q = 'Do I need a membership to get started?'
+  assign faq_1_a = 'No. You can begin with a Day Pass or choose the membership that best fits your lifestyle.'
+  assign faq_2_q = 'Who is this best for?'
+  assign faq_2_a = 'This offer is best for entrepreneurs, creators, business owners, executives, and high performers who value recovery as part of their performance strategy.'
+  assign faq_3_q = 'How do I book after purchasing?'
+  assign faq_3_a = 'After checkout, follow your booking instructions or contact the CoLab FXBG team to schedule your experience.'
+  case product.handle
+    when 'day-pass'
+      assign subheadline = 'A flexible way to experience CoLab FXBG and enjoy a premium recovery and performance environment on your own schedule.'
+      assign best_for = 'First-time visitors, busy professionals, entrepreneurs needing a reset, and creators wanting an elevated space to recharge in.'
+      assign benefit_1 = 'Flexible access'
+      assign benefit_2 = 'One-time reset'
+      assign benefit_3 = 'Premium introduction'
+      assign faq_1_q = 'Is the Day Pass a recurring membership?'
+      assign faq_1_a = 'No. The Day Pass is a one-time purchase designed for guests who want flexible access.'
+    when 'monthly-recharge-membership'
+      assign subheadline = 'A consistent recovery routine for entrepreneurs who want to maintain energy, clarity, and performance every month.'
+      assign best_for = 'Entrepreneurs, business owners, and professionals seeking regular recovery and sustainable performance support.'
+      assign benefit_1 = 'Monthly recovery rhythm'
+      assign benefit_2 = 'Consistent focus support'
+      assign benefit_3 = 'Sustainable performance'
+    when 'premium-founder-membership'
+      assign subheadline = 'An elevated membership for founders and high performers who want a premium experience built around recovery, clarity, and growth.'
+      assign best_for = 'Founders, executives, leaders, and high performers who want an elevated ongoing experience.'
+      assign benefit_1 = 'Premium ongoing access'
+      assign benefit_2 = 'High-level recovery support'
+      assign benefit_3 = 'Founder-focused environment'
+      assign faq_2_q = 'What makes this the premium tier?'
+      assign faq_2_a = 'The Premium Founder Membership is positioned as the most elevated ongoing experience for leaders who want recovery, focus, and premium support built into their routine.'
+    when 'content-recovery-membership'
+      assign subheadline = 'A hybrid membership for creators and entrepreneurs who want premium recovery experiences alongside content creation access.'
+      assign best_for = 'Creators, personal brands, entrepreneurs building visibility, and founders balancing performance with content output.'
+      assign benefit_1 = 'Content + recovery access'
+      assign benefit_2 = 'Visibility support'
+      assign benefit_3 = 'Energy for consistent output'
+      assign faq_2_q = 'Is this good for creators and personal brands?'
+      assign faq_2_a = 'Yes. This option is specifically positioned for founders and creators who want both recovery support and space to produce premium content.'
+  endcase
+%}
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Membership</p>
+        <h1>{{ product.title }}</h1>
+        <div class="colab-lead" style="margin-top:18px;">{{ subheadline }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-product-layout">
+        <div class="colab-product-media">
+          {% if product.featured_image %}
+            {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', alt: product.title }}
+          {% else %}
+            <div class="colab-placeholder" style="min-height:420px; display:flex; align-items:center; justify-content:center;">Add a product image in Shopify Admin to showcase this membership.</div>
+          {% endif %}
+        </div>
+        <div class="colab-product-card">
+          {% if product.handle == 'premium-founder-membership' %}
+            <span class="colab-badge">Signature Tier</span>
+          {% elsif product.handle == 'content-recovery-membership' %}
+            <span class="colab-badge">Creator Hybrid</span>
+          {% elsif product.handle == 'monthly-recharge-membership' %}
+            <span class="colab-badge">Monthly Rhythm</span>
+          {% else %}
+            <span class="colab-badge">Flexible Access</span>
+          {% endif %}
+          <div class="colab-price">{{ current_variant.price | money }}</div>
+          <div class="colab-richtext" style="margin-top:14px;">
+            {{ product.description }}
+          </div>
+          <div class="colab-bestfor"><strong>Best for:</strong> {{ best_for }}</div>
+          {% form 'product', product, class: 'colab-product-form' %}
+            {% if product.has_only_default_variant == false %}
+              <div style="margin-top:18px;">
+                <label for="variant-select-{{ section.id }}" class="colab-copy" style="display:block; margin-bottom:8px;">Select option</label>
+                <select id="variant-select-{{ section.id }}" class="colab-select" name="id">
+                  {% for variant in product.variants %}
+                    <option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                      {{ variant.title }} - {{ variant.price | money }}{% unless variant.available %} - Sold out{% endunless %}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% else %}
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+            {% endif %}
+            <div class="colab-btn-row">
+              <button class="colab-btn colab-btn--primary" type="submit" {% unless current_variant.available %}disabled{% endunless %}>
+                {% if current_variant.available %}Add to Cart{% else %}Sold Out{% endif %}
+              </button>
+              <a class="colab-btn colab-btn--secondary" href="/pages/contact">Back to Memberships</a>
+            </div>
+          {% endform %}
+          <div class="colab-btn-row">
+            <a class="colab-btn colab-btn--secondary" href="/pages/contact">Book a Session</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface-alt">
+    <div class="colab-container">
+      <div class="colab-header">
+        <p class="colab-eyebrow">Why It Matters</p>
+        <h2>Support the mind and body behind the mission.</h2>
+      </div>
+      <div class="colab-grid colab-grid-3">
+        <div class="colab-card"><h4>{{ benefit_1 }}</h4><p>Built to help you recover and operate with more intention.</p></div>
+        <div class="colab-card"><h4>{{ benefit_2 }}</h4><p>Support the energy, clarity, and resilience required for ambitious work.</p></div>
+        <div class="colab-card"><h4>{{ benefit_3 }}</h4><p>Return to your business, content, and leadership with stronger momentum.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Membership FAQ</p>
+        <h2>Helpful answers before you choose.</h2>
+      </div>
+      <div class="colab-faq">
+        <details open>
+          <summary>{{ faq_1_q }}</summary>
+          <div class="colab-faq-answer">{{ faq_1_a }}</div>
+        </details>
+        <details>
+          <summary>{{ faq_2_q }}</summary>
+          <div class="colab-faq-answer">{{ faq_2_a }}</div>
+        </details>
+        <details>
+          <summary>{{ faq_3_q }}</summary>
+          <div class="colab-faq-answer">{{ faq_3_a }}</div>
+        </details>
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Membership Product",
+  "settings": []
+}
+{% endschema %}

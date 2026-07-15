@@ -1,0 +1,79 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Contact</p>
+        <h1>Let&rsquo;s <em>Connect</em></h1>
+        <div class="colab-lead" style="margin-top:18px;">Have a question about memberships, sessions, private bookings, or the CoLab FXBG experience? Send a message and the team will follow up.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-split">
+        <div class="colab-page-card">
+          <p class="colab-eyebrow">Get in Touch</p>
+          {% form 'contact', class: 'colab-contact-form' %}
+            <div class="colab-form-grid">
+              <input class="colab-input" type="text" name="contact[name]" placeholder="Name" required>
+              <input class="colab-input" type="email" name="contact[email]" placeholder="Email" required>
+            </div>
+            <div class="colab-form-grid" style="margin-top:14px;">
+              <input class="colab-input" type="tel" name="contact[phone]" placeholder="Phone">
+              <select class="colab-select" name="contact[subject]">
+                <option value="">Select a subject</option>
+                <option>General Inquiry</option>
+                <option>Membership Questions</option>
+                <option>Book a Session</option>
+                <option>Partnership Opportunity</option>
+                <option>Private Booking</option>
+                <option>Press or Media</option>
+              </select>
+            </div>
+            <div style="margin-top:14px;">
+              <textarea class="colab-textarea" name="contact[body]" placeholder="Message" required></textarea>
+            </div>
+            <div class="colab-btn-row">
+              <button class="colab-btn colab-btn--primary" type="submit">Send Message</button>
+            </div>
+            {% if form.posted_successfully? %}
+              <div class="colab-form-success">Thanks for reaching out. We&rsquo;ll get back to you soon.</div>
+            {% endif %}
+            {% if form.errors %}
+              <div class="colab-errors">{{ form.errors | default_errors }}</div>
+            {% endif %}
+          {% endform %}
+        </div>
+        <div class="colab-page-card">
+          <p class="colab-eyebrow">Quick Links</p>
+          <h3>Choose the fastest path.</h3>
+          <div class="colab-copy" style="margin-top:14px;">Whether you&rsquo;re ready to book your first visit, explore membership options, or ask a quick question, start with the links below.</div>
+          <div class="colab-grid colab-grid-1" style="margin-top:20px;">
+            <div class="colab-card">
+              <h4 style="font-size:24px;">Book a Session</h4>
+              <p>Ready to experience the space? Start with a session or day pass.</p>
+              <div class="colab-btn-row"><a class="colab-btn colab-btn--secondary" href="/pages/contact">Go to Booking</a></div>
+            </div>
+            <div class="colab-card">
+              <h4 style="font-size:24px;">Memberships</h4>
+              <p>Explore the membership options that support your next level.</p>
+              <div class="colab-btn-row"><a class="colab-btn colab-btn--secondary" href="/pages/contact">View Memberships</a></div>
+            </div>
+            <div class="colab-card">
+              <h4 style="font-size:24px;">FAQ</h4>
+              <p>Need a quick answer before reaching out? Visit the FAQ page.</p>
+              <div class="colab-btn-row"><a class="colab-btn colab-btn--secondary" href="/pages/faq">View FAQ</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Contact Page",
+  "settings": []
+}
+{% endschema %}

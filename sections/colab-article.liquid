@@ -1,0 +1,82 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">{{ blog.title }}</p>
+        <h1>{{ article.title }}</h1>
+        <div class="colab-meta" style="margin-top:16px;">{{ article.published_at | date: '%B %d, %Y' }}{% if article.author != blank %} &middot; {{ article.author }}{% endif %}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-page-card">
+        {% if article.image %}
+          <div class="colab-product-media" style="margin-bottom:24px;">
+            {{ article.image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: article.title }}
+          </div>
+        {% endif %}
+        <div class="colab-richtext">
+          {{ article.content }}
+        </div>
+      </div>
+      <div class="colab-btn-row">
+        <a class="colab-btn colab-btn--secondary" href="{{ blog.url }}">Back to {{ blog.title }}</a>
+      </div>
+    </div>
+  </section>
+
+  {% if blog.comments_enabled? %}
+    <section class="colab-section colab-surface-alt">
+      <div class="colab-container">
+        <div class="colab-header--left">
+          <p class="colab-eyebrow">Comments</p>
+          <h2>Join the conversation.</h2>
+        </div>
+        {% if article.comments_count > 0 %}
+          {% paginate article.comments by 20 %}
+            <div class="colab-grid colab-grid-1" style="margin-bottom:28px;">
+              {% for comment in article.comments %}
+                <div class="colab-card">
+                  <div class="colab-meta">{{ comment.author }} &middot; {{ comment.created_at | date: '%B %d, %Y' }}</div>
+                  <div class="colab-copy" style="margin-top:10px;">{{ comment.content }}</div>
+                </div>
+              {% endfor %}
+            </div>
+            {% if paginate.pages > 1 %}
+              <div class="colab-pagination" style="margin-bottom:28px;">{{ paginate | default_pagination }}</div>
+            {% endif %}
+          {% endpaginate %}
+        {% endif %}
+        <div class="colab-page-card">
+          <p class="colab-eyebrow">Leave a Comment</p>
+          {% form 'new_comment', article %}
+            {% if form.posted_successfully? %}
+              <div class="colab-form-success">Thanks for your comment.{% if blog.moderated? %} It will appear once it has been approved.{% endif %}</div>
+            {% endif %}
+            {% if form.errors %}
+              <div class="colab-errors">{{ form.errors | default_errors }}</div>
+            {% endif %}
+            <div class="colab-form-grid" style="margin-top:14px;">
+              <input class="colab-input" type="text" name="comment[author]" placeholder="Name" required>
+              <input class="colab-input" type="email" name="comment[email]" placeholder="Email" required>
+            </div>
+            <div style="margin-top:14px;">
+              <textarea class="colab-textarea" name="comment[body]" placeholder="Comment" required></textarea>
+            </div>
+            <div class="colab-btn-row">
+              <button class="colab-btn colab-btn--primary" type="submit">Post Comment</button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+</section>
+{% schema %}
+{
+  "name": "CoLab Article",
+  "settings": []
+}
+{% endschema %}

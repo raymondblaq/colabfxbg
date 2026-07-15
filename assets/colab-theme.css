@@ -1,0 +1,727 @@
+/* CoLab FXBG — theme scaffold styles (header, footer, cart, grids, account) */
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background: #F8F5EF;
+  color: #1B1813;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.colab-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #8F6B41;
+  color: #ffffff;
+  padding: 12px 18px;
+  border-radius: 0 0 14px 0;
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.colab-skip-link:focus {
+  left: 0;
+}
+
+/* Header */
+.colab-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(248, 245, 239, 0.85);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(27, 24, 19, 0.07);
+  transition: box-shadow 0.4s ease, background-color 0.4s ease;
+}
+
+.colab-site-header.is-scrolled {
+  background: rgba(248, 245, 239, 0.94);
+  box-shadow: 0 1px 0 rgba(27, 24, 19, 0.05), 0 12px 34px rgba(27, 24, 19, 0.08);
+}
+
+.colab-site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 80px;
+  padding: 10px 0;
+}
+
+.colab-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #1B1813;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.colab-logo:hover {
+  color: #8F6B41;
+}
+
+.colab-logo-img {
+  display: block;
+  max-height: 46px;
+  width: auto;
+}
+
+.colab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+}
+
+.colab-nav a {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 10px 12px;
+  color: #1B1813;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease;
+}
+
+.colab-nav a::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 1px;
+  background: #8F6B41;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.colab-nav a:hover,
+.colab-nav a[aria-current="page"] {
+  color: #8F6B41;
+}
+
+.colab-nav a:hover::after,
+.colab-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.colab-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.colab-header-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: #1B1813;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.colab-header-actions a:hover {
+  color: #8F6B41;
+  background: rgba(176, 134, 85, 0.1);
+}
+
+.colab-header-actions svg {
+  display: block;
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.colab-header-book {
+  margin-left: 6px;
+}
+
+.colab-header-book .colab-btn {
+  min-height: 42px;
+  padding: 0 20px;
+  font-size: 13px;
+}
+
+.colab-cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #B08655;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Footer */
+.colab-site-footer {
+  position: relative;
+  background:
+    radial-gradient(ellipse 50% 60% at 90% 0%, rgba(176, 134, 85, 0.14), transparent 60%),
+    linear-gradient(150deg, #1E2822 0%, #2E3B33 100%);
+  color: rgba(255, 255, 255, 0.82);
+  padding: 84px 0 30px;
+  overflow: hidden;
+}
+
+.colab-site-footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.colab-site-footer .colab-container {
+  position: relative;
+  z-index: 1;
+}
+
+.colab-site-footer h4 {
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.colab-footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr;
+  gap: 44px;
+  align-items: start;
+}
+
+.colab-footer-tagline {
+  margin: 16px 0 0;
+  font-size: 15px;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.66);
+  max-width: 380px;
+}
+
+.colab-footer-location {
+  margin: 18px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200, 155, 103, 0.9);
+}
+
+.colab-footer-heading {
+  margin: 6px 0 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.colab-footer-links {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.colab-footer-links a {
+  position: relative;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.colab-footer-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: #C89B67;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.colab-footer-links a:hover {
+  color: #C89B67;
+}
+
+.colab-footer-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.colab-footer-newsletter-copy {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.colab-footer-newsletter-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.colab-footer-input {
+  min-height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.07);
+  padding: 12px 20px;
+  font: inherit;
+  font-size: 14px;
+  color: #ffffff;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.colab-footer-input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.colab-footer-input:focus {
+  outline: none;
+  border-color: rgba(200, 155, 103, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.colab-footer-submit {
+  min-height: 48px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #BD9260 0%, #A67C4B 100%);
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.colab-footer-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.colab-footer-form-note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(200, 155, 103, 0.95);
+}
+
+.colab-footer-bottom {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.colab-footer-policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.colab-footer-policies a {
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.colab-footer-policies a:hover {
+  color: #C89B67;
+}
+
+/* Product / collection tiles */
+.colab-tile-link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.colab-tile {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.colab-tile-link:hover .colab-tile {
+  transform: translateY(-4px);
+  box-shadow:
+    0 2px 4px rgba(27, 24, 19, 0.05),
+    0 20px 48px rgba(27, 24, 19, 0.1);
+}
+
+.colab-tile-media {
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(150deg, #F0E7D8 0%, #E0D4C2 100%);
+  border: 1px solid rgba(27, 24, 19, 0.06);
+}
+
+.colab-tile-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.colab-tile-link:hover .colab-tile-media img {
+  transform: scale(1.04);
+}
+
+.colab-tile-price {
+  margin-top: 8px;
+  font-weight: 700;
+  color: #2C382F;
+}
+
+.colab-tile-excerpt {
+  margin-top: 10px;
+}
+
+.colab-meta {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8F6B41;
+}
+
+/* Generic product page extras */
+.colab-media-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.colab-media-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(27, 24, 19, 0.06);
+  transition: opacity 0.3s ease;
+}
+
+.colab-media-gallery img:hover {
+  opacity: 0.85;
+}
+
+.colab-compare-price {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #675F53;
+  text-decoration: line-through;
+}
+
+.colab-qty-input {
+  width: 110px;
+  min-height: 52px;
+  border-radius: 14px;
+  border: 1px solid rgba(27, 24, 19, 0.14);
+  background: #ffffff;
+  padding: 10px 14px;
+  font: inherit;
+  text-align: center;
+  color: #1B1813;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.colab-qty-input:focus {
+  outline: none;
+  border-color: #B08655;
+  box-shadow: 0 0 0 4px rgba(176, 134, 85, 0.12);
+}
+
+/* Tables (cart, orders) */
+.colab-table-scroll {
+  overflow-x: auto;
+}
+
+.colab-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.colab-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8F6B41;
+  padding: 12px;
+  border-bottom: 1px solid rgba(27, 24, 19, 0.12);
+}
+
+.colab-table td {
+  padding: 18px 12px;
+  border-bottom: 1px solid rgba(27, 24, 19, 0.07);
+  vertical-align: middle;
+  color: #675F53;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.colab-table td a {
+  color: #2C382F;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.colab-table td a:hover {
+  color: #8F6B41;
+}
+
+.colab-cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.colab-cart-thumb {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(27, 24, 19, 0.06);
+  flex-shrink: 0;
+}
+
+.colab-cart-variant {
+  font-size: 13px;
+  color: #675F53;
+  margin-top: 4px;
+}
+
+.colab-cart-remove {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.colab-cart-summary {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  text-align: right;
+}
+
+.colab-cart-subtotal {
+  font-size: 20px;
+  color: #1B1813;
+}
+
+.colab-cart-subtotal strong {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  color: #2C382F;
+}
+
+/* Pagination (Shopify default_pagination output) */
+.colab-pagination {
+  margin-top: 44px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.colab-pagination span,
+.colab-pagination a {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 17px;
+  border-radius: 999px;
+  border: 1px solid rgba(27, 24, 19, 0.14);
+  color: #1B1813;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.colab-pagination a:hover {
+  background: rgba(176, 134, 85, 0.1);
+  border-color: rgba(176, 134, 85, 0.4);
+  color: #8F6B41;
+}
+
+.colab-pagination span.current {
+  background: #B08655;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+/* Account + auth */
+.colab-account-card {
+  max-width: 560px;
+}
+
+.colab-form-stack {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.colab-inline-form {
+  display: inline-block;
+}
+
+.colab-address-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.colab-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #675F53;
+  font-size: 15px;
+}
+
+/* Password page */
+.colab-password-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 0%, rgba(176, 134, 85, 0.18), transparent 65%),
+    radial-gradient(ellipse 50% 45% at 92% 18%, rgba(44, 56, 47, 0.16), transparent 65%),
+    linear-gradient(160deg, #F9F5EC 0%, #F0E7D8 45%, #E5DBCB 100%);
+}
+
+.colab-password-card {
+  width: min(560px, 100%);
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .colab-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 1280px) {
+  /* Icon-only header actions on smaller screens (cart count stays visible) */
+  .colab-header-actions a > span:not(.colab-cart-count) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .colab-header-actions svg {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+@media (max-width: 960px) {
+  .colab-site-header-inner {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .colab-nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+  }
+
+  .colab-header-book {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .colab-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .colab-media-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .colab-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,94 @@
+{% assign booking_url = section.settings.booking_url | default: '/pages/contact' %}
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Book a Session</p>
+        <h1>Recharge with intention. <em>Return with momentum.</em></h1>
+        <div class="colab-lead" style="margin-top:18px;">Choose the experience that fits your goals — whether you want a one-time reset or a consistent performance routine.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-grid colab-grid-3">
+        <div class="colab-card">
+          <span class="colab-card-label">Option 1</span>
+          <h4>Book a Day Pass</h4>
+          <p>Perfect for first-time guests and busy professionals who want a premium reset on their own schedule.</p>
+          <div class="colab-btn-row">
+            <a class="colab-btn colab-btn--secondary" href="/pages/contact">Book a Day Pass</a>
+          </div>
+        </div>
+        <div class="colab-card">
+          <span class="colab-card-label">Option 2</span>
+          <h4>Start a Membership</h4>
+          <p>Explore recurring options designed to support recovery, focus, energy, and content output over time.</p>
+          <div class="colab-btn-row">
+            <a class="colab-btn colab-btn--secondary" href="/pages/contact">Explore Memberships</a>
+          </div>
+        </div>
+        <div class="colab-card">
+          <span class="colab-card-label">Option 3</span>
+          <h4>Private Inquiry</h4>
+          <p>Need a custom visit, private booking, or founder-focused experience? Reach out directly.</p>
+          <div class="colab-btn-row">
+            <a class="colab-btn colab-btn--secondary" href="/pages/contact">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface-alt">
+    <div class="colab-container">
+      <div class="colab-page-card">
+        <p class="colab-eyebrow">Direct Booking</p>
+        <h2>Ready to schedule?</h2>
+        <div class="colab-copy" style="margin-top:14px;">
+          {% if section.settings.booking_note != blank %}
+            {{ section.settings.booking_note }}
+          {% else %}
+            Use the button below to open your booking link, or paste embed code in this section&rsquo;s settings to display a booking widget here.
+          {% endif %}
+        </div>
+        <div class="colab-btn-row">
+          <a class="colab-btn colab-btn--primary" href="{{ booking_url }}">Open Booking</a>
+        </div>
+        {% if section.settings.booking_embed_html != blank %}
+          <div style="margin-top:28px;">
+            {{ section.settings.booking_embed_html }}
+          </div>
+        {% else %}
+          <div class="colab-placeholder" style="margin-top:28px;">
+            Optional embed area. Paste Calendly or other scheduling embed code into the <strong>booking_embed_html</strong> setting for this section to display your scheduler here.
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Book Session",
+  "settings": [
+    {
+      "type": "url",
+      "id": "booking_url",
+      "label": "Booking URL"
+    },
+    {
+      "type": "textarea",
+      "id": "booking_embed_html",
+      "label": "Booking embed HTML"
+    },
+    {
+      "type": "text",
+      "id": "booking_note",
+      "label": "Booking note",
+      "default": "Choose a session time that works for your schedule and experience the CoLab FXBG space with intention."
+    }
+  ]
+}
+{% endschema %}

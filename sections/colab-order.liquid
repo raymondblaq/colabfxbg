@@ -1,0 +1,78 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Order</p>
+        <h1>Order {{ order.name }}</h1>
+        <div class="colab-meta" style="margin-top:16px;">Placed {{ order.created_at | date: '%B %d, %Y' }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-page-card">
+        <div class="colab-table-scroll">
+          <table class="colab-table">
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for line_item in order.line_items %}
+                <tr>
+                  <td>
+                    {{ line_item.title }}
+                    {% unless line_item.variant.title == 'Default Title' or line_item.variant.title == blank %}
+                      <div class="colab-cart-variant">{{ line_item.variant.title }}</div>
+                    {% endunless %}
+                  </td>
+                  <td>{{ line_item.final_price | money }}</td>
+                  <td>{{ line_item.quantity }}</td>
+                  <td>{{ line_item.final_line_price | money }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="colab-cart-summary">
+          <div class="colab-copy">Subtotal: {{ order.subtotal_price | money }}</div>
+          {% for shipping_method in order.shipping_methods %}
+            <div class="colab-copy">Shipping ({{ shipping_method.title }}): {{ shipping_method.price | money }}</div>
+          {% endfor %}
+          <div class="colab-copy">Tax: {{ order.tax_price | money }}</div>
+          <div class="colab-cart-subtotal">Total: <strong>{{ order.total_price | money }}</strong></div>
+        </div>
+      </div>
+
+      <div class="colab-grid colab-grid-2" style="margin-top:24px;">
+        {% if order.billing_address %}
+          <div class="colab-card">
+            <p class="colab-eyebrow">Billing Address</p>
+            <div class="colab-copy">{{ order.billing_address | format_address }}</div>
+          </div>
+        {% endif %}
+        {% if order.shipping_address %}
+          <div class="colab-card">
+            <p class="colab-eyebrow">Shipping Address</p>
+            <div class="colab-copy">{{ order.shipping_address | format_address }}</div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="colab-btn-row">
+        <a class="colab-btn colab-btn--secondary" href="{{ routes.account_url }}">Back to Account</a>
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Order",
+  "settings": []
+}
+{% endschema %}

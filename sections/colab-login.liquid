@@ -1,0 +1,61 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Account</p>
+        <h1>Log in</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-page-card colab-account-card">
+        {% form 'customer_login' %}
+          {% if form.errors %}
+            <div class="colab-errors">{{ form.errors | default_errors }}</div>
+          {% endif %}
+          <div class="colab-form-stack">
+            <input class="colab-input" type="email" name="customer[email]" placeholder="Email" autocomplete="email" required>
+            <input class="colab-input" type="password" name="customer[password]" placeholder="Password" autocomplete="current-password" required>
+          </div>
+          <div class="colab-btn-row">
+            <button class="colab-btn colab-btn--primary" type="submit">Log in</button>
+          </div>
+        {% endform %}
+
+        <div class="colab-faq" style="margin-top:24px;">
+          <details>
+            <summary>Forgot your password?</summary>
+            <div class="colab-faq-answer">
+              {% form 'recover_customer_password' %}
+                {% if form.posted_successfully? %}
+                  <div class="colab-form-success">If that email is in our system, a reset link is on its way.</div>
+                {% endif %}
+                {% if form.errors %}
+                  <div class="colab-errors">{{ form.errors | default_errors }}</div>
+                {% endif %}
+                <div class="colab-form-stack">
+                  <input class="colab-input" type="email" name="email" placeholder="Email" autocomplete="email" required>
+                </div>
+                <div class="colab-btn-row">
+                  <button class="colab-btn colab-btn--secondary" type="submit">Send reset link</button>
+                </div>
+              {% endform %}
+            </div>
+          </details>
+        </div>
+
+        <div class="colab-copy" style="margin-top:24px;">
+          New to {{ shop.name }}? <a href="{{ routes.account_register_url }}" style="color:#2E3A32; font-weight:700;">Create an account</a>.
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Login",
+  "settings": []
+}
+{% endschema %}

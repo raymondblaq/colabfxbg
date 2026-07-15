@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-contact-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-account",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-article",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

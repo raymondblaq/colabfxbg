@@ -1,0 +1,75 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Account</p>
+        <h1>Welcome back{% if customer.first_name != blank %}, {{ customer.first_name }}{% endif %}.</h1>
+        <div class="colab-btn-row">
+          <a class="colab-btn colab-btn--secondary" href="{{ routes.account_logout_url }}">Log out</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-page-card">
+        <p class="colab-eyebrow">Order History</p>
+        {% if customer.orders.size > 0 %}
+          {% paginate customer.orders by 10 %}
+            <div class="colab-table-scroll">
+              <table class="colab-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Fulfillment</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in customer.orders %}
+                    <tr>
+                      <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                      <td>{{ order.created_at | date: '%B %d, %Y' }}</td>
+                      <td>{{ order.financial_status_label }}</td>
+                      <td>{{ order.fulfillment_status_label }}</td>
+                      <td>{{ order.total_price | money }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% if paginate.pages > 1 %}
+              <div class="colab-pagination">{{ paginate | default_pagination }}</div>
+            {% endif %}
+          {% endpaginate %}
+        {% else %}
+          <div class="colab-copy">You haven&rsquo;t placed any orders yet.</div>
+          <div class="colab-btn-row">
+            <a class="colab-btn colab-btn--primary" href="/pages/contact">Explore Memberships</a>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="colab-page-card" style="margin-top:24px;">
+        <p class="colab-eyebrow">Default Address</p>
+        {% if customer.default_address %}
+          <div class="colab-copy">{{ customer.default_address | format_address }}</div>
+        {% else %}
+          <div class="colab-copy">No address on file yet.</div>
+        {% endif %}
+        <div class="colab-btn-row">
+          <a class="colab-btn colab-btn--secondary" href="{{ routes.account_addresses_url }}">Manage addresses ({{ customer.addresses_count }})</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Account",
+  "settings": []
+}
+{% endschema %}

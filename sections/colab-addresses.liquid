@@ -1,0 +1,77 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Account</p>
+        <h1>Your Addresses</h1>
+        <div class="colab-btn-row">
+          <a class="colab-btn colab-btn--secondary" href="{{ routes.account_url }}">Back to Account</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      {% if customer.addresses_count > 0 %}
+        <div class="colab-grid colab-grid-2">
+          {% for address in customer.addresses %}
+            <div class="colab-card">
+              <p class="colab-eyebrow">{% if address == customer.default_address %}Default Address{% else %}Address{% endif %}</p>
+              <div class="colab-copy">{{ address | format_address }}</div>
+              <div class="colab-address-actions">
+                <form class="colab-inline-form" method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}">
+                  <input type="hidden" name="_method" value="delete">
+                  <button class="colab-btn colab-btn--secondary" type="submit">Delete</button>
+                </form>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="colab-placeholder">No addresses saved yet. Add your first address below.</div>
+      {% endif %}
+
+      <div class="colab-page-card" style="margin-top:28px;">
+        <p class="colab-eyebrow">Add a New Address</p>
+        {% form 'customer_address', customer.new_address %}
+          <div class="colab-form-grid">
+            <input class="colab-input" type="text" name="address[first_name]" placeholder="First name" autocomplete="given-name">
+            <input class="colab-input" type="text" name="address[last_name]" placeholder="Last name" autocomplete="family-name">
+          </div>
+          <div class="colab-form-stack">
+            <input class="colab-input" type="text" name="address[company]" placeholder="Company (optional)" autocomplete="organization">
+            <input class="colab-input" type="text" name="address[address1]" placeholder="Address" autocomplete="address-line1">
+            <input class="colab-input" type="text" name="address[address2]" placeholder="Apartment, suite, etc. (optional)" autocomplete="address-line2">
+          </div>
+          <div class="colab-form-grid" style="margin-top:12px;">
+            <input class="colab-input" type="text" name="address[city]" placeholder="City" autocomplete="address-level2">
+            <input class="colab-input" type="text" name="address[zip]" placeholder="Postal / ZIP code" autocomplete="postal-code">
+          </div>
+          <div class="colab-form-grid" style="margin-top:12px;">
+            <select class="colab-select" name="address[country]" autocomplete="country">
+              {{ country_option_tags }}
+            </select>
+            <input class="colab-input" type="text" name="address[province]" placeholder="State / Province" autocomplete="address-level1">
+          </div>
+          <div class="colab-form-stack">
+            <input class="colab-input" type="tel" name="address[phone]" placeholder="Phone (optional)" autocomplete="tel">
+            <label class="colab-checkbox-row">
+              {{ form.set_as_default_checkbox }}
+              Set as default address
+            </label>
+          </div>
+          <div class="colab-btn-row">
+            <button class="colab-btn colab-btn--primary" type="submit">Add Address</button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Addresses",
+  "settings": []
+}
+{% endschema %}

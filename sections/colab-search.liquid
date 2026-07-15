@@ -1,0 +1,64 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Search</p>
+        <h1>Find what you need.</h1>
+        <form action="{{ routes.search_url }}" method="get" role="search" style="margin-top:24px; max-width:640px;">
+          <div class="colab-newsletter-grid">
+            <input class="colab-input colab-input--pill" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products, pages, and articles" aria-label="Search">
+            <button class="colab-btn colab-btn--primary" type="submit">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {% if search.performed %}
+    <section class="colab-section colab-surface">
+      <div class="colab-container">
+        {% if search.results_count > 0 %}
+          <div class="colab-header--left">
+            <p class="colab-eyebrow">Results</p>
+            <h2>{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} for &ldquo;{{ search.terms | escape }}&rdquo;</h2>
+          </div>
+          {% paginate search.results by 12 %}
+            <div class="colab-grid colab-grid-3">
+              {% for item in search.results %}
+                <a class="colab-tile-link" href="{{ item.url }}">
+                  <div class="colab-card colab-tile">
+                    {% if item.object_type == 'product' and item.featured_image %}
+                      <div class="colab-tile-media">
+                        {{ item.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: item.title }}
+                      </div>
+                    {% elsif item.object_type == 'article' and item.image %}
+                      <div class="colab-tile-media">
+                        {{ item.image | image_url: width: 720 | image_tag: loading: 'lazy', alt: item.title }}
+                      </div>
+                    {% endif %}
+                    <span class="colab-card-label" style="margin-top:14px;">{{ item.object_type | capitalize }}</span>
+                    <h4 style="font-size:24px;">{{ item.title }}</h4>
+                    {% if item.object_type == 'product' %}
+                      <div class="colab-tile-price">{{ item.price | money }}</div>
+                    {% endif %}
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+            {% if paginate.pages > 1 %}
+              <div class="colab-pagination">{{ paginate | default_pagination }}</div>
+            {% endif %}
+          {% endpaginate %}
+        {% else %}
+          <div class="colab-placeholder">No results for &ldquo;{{ search.terms | escape }}&rdquo;. Try a different search.</div>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+</section>
+{% schema %}
+{
+  "name": "CoLab Search",
+  "settings": []
+}
+{% endschema %}

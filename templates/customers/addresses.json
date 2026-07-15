@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-addresses",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,84 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Cart</p>
+        <h1>Your Cart</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      {% if cart.item_count > 0 %}
+        <form action="{{ routes.cart_url }}" method="post" class="colab-page-card">
+          <div class="colab-table-scroll">
+            <table class="colab-table">
+              <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total</th>
+                  <th scope="col"><span style="position:absolute; left:-9999px;">Remove</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in cart.items %}
+                  <tr>
+                    <td>
+                      <div class="colab-cart-item">
+                        {% if item.image %}
+                          {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'colab-cart-thumb', alt: item.title }}
+                        {% endif %}
+                        <div>
+                          <a href="{{ item.url }}">{{ item.product.title }}</a>
+                          {% unless item.variant.title == 'Default Title' %}
+                            <div class="colab-cart-variant">{{ item.variant.title }}</div>
+                          {% endunless %}
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ item.final_price | money }}</td>
+                    <td>
+                      <input class="colab-qty-input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity for {{ item.product.title | escape }}">
+                    </td>
+                    <td>{{ item.final_line_price | money }}</td>
+                    <td><a class="colab-cart-remove" href="{{ item.url_to_remove }}">Remove</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="colab-cart-summary">
+            <div class="colab-cart-subtotal">Subtotal: <strong>{{ cart.total_price | money }}</strong></div>
+            <div class="colab-form-note">Taxes and shipping are calculated at checkout.</div>
+            <div class="colab-btn-row">
+              <button class="colab-btn colab-btn--secondary" type="submit" name="update">Update Cart</button>
+              <button class="colab-btn colab-btn--primary" type="submit" name="checkout">Checkout</button>
+            </div>
+          </div>
+        </form>
+        <div class="colab-btn-row">
+          <a class="colab-btn colab-btn--secondary" href="/pages/contact">Continue Shopping</a>
+        </div>
+      {% else %}
+        <div class="colab-page-card">
+          <p class="colab-eyebrow">Empty Cart</p>
+          <h3>Your cart is empty.</h3>
+          <div class="colab-copy" style="margin-top:12px;">Start with a Day Pass or explore memberships built for the way you work.</div>
+          <div class="colab-btn-row">
+            <a class="colab-btn colab-btn--primary" href="/pages/contact">Explore Memberships</a>
+            <a class="colab-btn colab-btn--secondary" href="/pages/contact">Book a Session</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Cart",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,81 @@
+{% if section.settings.announcement != blank %}
+  <div class="colab-wrap"><div class="colab-bar">{{ section.settings.announcement }}</div></div>
+{% endif %}
+<header class="colab-wrap colab-site-header">
+  <div class="colab-container">
+    <div class="colab-site-header-inner">
+      <a class="colab-logo" href="{{ routes.root_url }}">
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 320 | image_tag: alt: shop.name, class: 'colab-logo-img' }}
+        {% else %}
+          {{ shop.name }}
+        {% endif %}
+      </a>
+      <nav class="colab-nav" aria-label="Main navigation">
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+      <div class="colab-header-actions">
+        <a href="{{ routes.search_url }}" aria-label="Search">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6.2"/><path d="M13.6 13.6L18 18"/></svg>
+          <span>Search</span>
+        </a>
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <a href="{{ routes.account_url }}" aria-label="Account">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.5" r="3.6"/><path d="M3.5 17.5c1.2-3.4 3.6-5 6.5-5s5.3 1.6 6.5 5"/></svg>
+              <span>Account</span>
+            </a>
+          {% else %}
+            <a href="{{ routes.account_login_url }}" aria-label="Log in">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.5" r="3.6"/><path d="M3.5 17.5c1.2-3.4 3.6-5 6.5-5s5.3 1.6 6.5 5"/></svg>
+              <span>Log in</span>
+            </a>
+          {% endif %}
+        {% endif %}
+        <a href="{{ routes.cart_url }}" aria-label="Cart">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6.5h12l-1 11H5l-1-11z"/><path d="M7 8.5V5.2a3 3 0 0 1 6 0v3.3"/></svg>
+          <span>Cart</span>
+          {%- if cart.item_count > 0 -%}<span class="colab-cart-count" aria-label="{{ cart.item_count }} items">{{ cart.item_count }}</span>{%- endif -%}
+        </a>
+        {% if section.settings.show_book_button %}
+          <span class="colab-header-book">
+            <a class="colab-btn colab-btn--primary" href="/pages/contact">Book a Session</a>
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "CoLab Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Announcement text",
+      "info": "Optional bar above the header.",
+      "default": "Where founders recover, create, and scale"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_book_button",
+      "label": "Show \"Book a Session\" button",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

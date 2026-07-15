@@ -1,0 +1,40 @@
+{% paginate collections by 12 %}
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Browse</p>
+        <h1>Collections</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-grid colab-grid-3">
+        {% for collection in collections %}
+          <a class="colab-tile-link" href="{{ collection.url }}">
+            <div class="colab-card colab-tile">
+              <div class="colab-tile-media">
+                {% if collection.featured_image %}
+                  {{ collection.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: collection.title }}
+                {% endif %}
+              </div>
+              <h4 style="margin-top:14px; font-size:24px;">{{ collection.title }}</h4>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+      {% if paginate.pages > 1 %}
+        <div class="colab-pagination">{{ paginate | default_pagination }}</div>
+      {% endif %}
+    </div>
+  </section>
+</section>
+{% endpaginate %}
+{% schema %}
+{
+  "name": "CoLab Collections List",
+  "settings": []
+}
+{% endschema %}

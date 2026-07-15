@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-activate-account",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

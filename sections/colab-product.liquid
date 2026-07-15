@@ -1,0 +1,83 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">{{ product.vendor | default: shop.name }}</p>
+        <h1>{{ product.title }}</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-product-layout">
+        <div>
+          <div class="colab-product-media">
+            {% if product.featured_image %}
+              {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', alt: product.title }}
+            {% else %}
+              <div class="colab-placeholder" style="min-height:420px; display:flex; align-items:center; justify-content:center;">Add a product image in Shopify Admin.</div>
+            {% endif %}
+          </div>
+          {% if product.images.size > 1 %}
+            <div class="colab-media-gallery">
+              {% for image in product.images %}
+                {% unless image == product.featured_image %}
+                  {{ image | image_url: width: 400 | image_tag: loading: 'lazy', alt: product.title }}
+                {% endunless %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="colab-product-card">
+          {% if product.type != blank %}
+            <span class="colab-badge">{{ product.type }}</span>
+          {% endif %}
+          <div class="colab-price">
+            {{ current_variant.price | money }}
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <s class="colab-compare-price">{{ current_variant.compare_at_price | money }}</s>
+            {% endif %}
+          </div>
+          <div class="colab-richtext" style="margin-top:14px;">
+            {{ product.description }}
+          </div>
+          {% form 'product', product, class: 'colab-product-form' %}
+            {% if product.has_only_default_variant == false %}
+              <div style="margin-top:18px;">
+                <label for="variant-select-{{ section.id }}" class="colab-copy" style="display:block; margin-bottom:8px;">Select option</label>
+                <select id="variant-select-{{ section.id }}" class="colab-select" name="id">
+                  {% for variant in product.variants %}
+                    <option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                      {{ variant.title }} - {{ variant.price | money }}{% unless variant.available %} - Sold out{% endunless %}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% else %}
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+            {% endif %}
+            <div style="margin-top:18px;">
+              <label for="quantity-{{ section.id }}" class="colab-copy" style="display:block; margin-bottom:8px;">Quantity</label>
+              <input id="quantity-{{ section.id }}" class="colab-qty-input" type="number" name="quantity" value="1" min="1">
+            </div>
+            <div class="colab-btn-row">
+              <button class="colab-btn colab-btn--primary" type="submit" {% unless current_variant.available %}disabled{% endunless %}>
+                {% if current_variant.available %}Add to Cart{% else %}Sold Out{% endif %}
+              </button>
+              <a class="colab-btn colab-btn--secondary" href="{{ routes.all_products_collection_url }}">Keep Browsing</a>
+            </div>
+            {{ form | payment_button }}
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Product",
+  "settings": []
+}
+{% endschema %}

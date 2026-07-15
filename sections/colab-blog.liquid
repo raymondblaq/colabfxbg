@@ -1,0 +1,46 @@
+{% paginate blog.articles by 6 %}
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Journal</p>
+        <h1>{{ blog.title }}</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      {% if blog.articles_count > 0 %}
+        <div class="colab-grid colab-grid-3">
+          {% for article in blog.articles %}
+            <a class="colab-tile-link" href="{{ article.url }}">
+              <div class="colab-card colab-tile">
+                <div class="colab-tile-media">
+                  {% if article.image %}
+                    {{ article.image | image_url: width: 720 | image_tag: loading: 'lazy', alt: article.title }}
+                  {% endif %}
+                </div>
+                <div class="colab-meta" style="margin-top:14px;">{{ article.published_at | date: '%B %d, %Y' }}</div>
+                <h4 style="margin-top:8px; font-size:24px;">{{ article.title }}</h4>
+                <p class="colab-tile-excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 26 }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+        {% if paginate.pages > 1 %}
+          <div class="colab-pagination">{{ paginate | default_pagination }}</div>
+        {% endif %}
+      {% else %}
+        <div class="colab-placeholder">No posts yet. Publish your first article in Shopify Admin.</div>
+      {% endif %}
+    </div>
+  </section>
+</section>
+{% endpaginate %}
+{% schema %}
+{
+  "name": "CoLab Blog",
+  "settings": []
+}
+{% endschema %}

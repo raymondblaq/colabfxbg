@@ -1,0 +1,37 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Account</p>
+        <h1>Activate your account</h1>
+        <div class="colab-lead" style="margin-top:18px;">Create a password to activate your {{ shop.name }} account.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-page-card colab-account-card">
+        {% form 'activate_customer_password' %}
+          {% if form.errors %}
+            <div class="colab-errors">{{ form.errors | default_errors }}</div>
+          {% endif %}
+          <div class="colab-form-stack">
+            <input class="colab-input" type="password" name="customer[password]" placeholder="Password" autocomplete="new-password" required>
+            <input class="colab-input" type="password" name="customer[password_confirmation]" placeholder="Confirm password" autocomplete="new-password" required>
+          </div>
+          <div class="colab-btn-row">
+            <button class="colab-btn colab-btn--primary" type="submit">Activate account</button>
+            <button class="colab-btn colab-btn--secondary" type="submit" name="decline">Decline invitation</button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Activate Account",
+  "settings": []
+}
+{% endschema %}

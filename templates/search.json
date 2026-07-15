@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-search",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

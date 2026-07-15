@@ -1,0 +1,55 @@
+{% paginate collection.products by 12 %}
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Collection</p>
+        <h1>{{ collection.title }}</h1>
+        {% if collection.description != blank %}
+          <div class="colab-lead" style="margin-top:18px;">{{ collection.description }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      {% if collection.products_count > 0 %}
+        <div class="colab-grid colab-grid-3">
+          {% for product in collection.products %}
+            <a class="colab-tile-link" href="{{ product.url }}">
+              <div class="colab-card colab-tile">
+                <div class="colab-tile-media">
+                  {% if product.featured_image %}
+                    {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title }}
+                  {% endif %}
+                </div>
+                <h4 style="margin-top:14px; font-size:24px;">{{ product.title }}</h4>
+                <div class="colab-tile-price">
+                  {% if product.price_varies %}
+                    From {{ product.price_min | money }}
+                  {% else %}
+                    {{ product.price | money }}
+                  {% endif %}
+                  {% unless product.available %} &middot; Sold out{% endunless %}
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+        {% if paginate.pages > 1 %}
+          <div class="colab-pagination">{{ paginate | default_pagination }}</div>
+        {% endif %}
+      {% else %}
+        <div class="colab-placeholder">No products in this collection yet. Add products in Shopify Admin.</div>
+      {% endif %}
+    </div>
+  </section>
+</section>
+{% endpaginate %}
+{% schema %}
+{
+  "name": "CoLab Collection",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,42 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Account</p>
+        <h1>Create an account</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      <div class="colab-page-card colab-account-card">
+        {% form 'create_customer' %}
+          {% if form.errors %}
+            <div class="colab-errors">{{ form.errors | default_errors }}</div>
+          {% endif %}
+          <div class="colab-form-grid">
+            <input class="colab-input" type="text" name="customer[first_name]" placeholder="First name" autocomplete="given-name">
+            <input class="colab-input" type="text" name="customer[last_name]" placeholder="Last name" autocomplete="family-name">
+          </div>
+          <div class="colab-form-stack">
+            <input class="colab-input" type="email" name="customer[email]" placeholder="Email" autocomplete="email" required>
+            <input class="colab-input" type="password" name="customer[password]" placeholder="Password" autocomplete="new-password" required>
+          </div>
+          <div class="colab-btn-row">
+            <button class="colab-btn colab-btn--primary" type="submit">Create account</button>
+          </div>
+        {% endform %}
+        <div class="colab-copy" style="margin-top:24px;">
+          Already have an account? <a href="{{ routes.account_login_url }}" style="color:#2E3A32; font-weight:700;">Log in</a>.
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Register",
+  "settings": []
+}
+{% endschema %}

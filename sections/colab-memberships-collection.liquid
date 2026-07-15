@@ -1,0 +1,97 @@
+<section class="colab-wrap">
+  <section class="colab-page-hero">
+    <div class="colab-container">
+      <div class="colab-header--left">
+        <p class="colab-eyebrow">Memberships</p>
+        <h1>{{ collection.title }}</h1>
+        <div class="colab-lead" style="margin-top:18px;">
+          {% if collection.description != blank %}
+            {{ collection.description }}
+          {% else %}
+            Explore the membership options designed to support recovery, focus, premium content creation, and next-level execution.
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="colab-section colab-surface">
+    <div class="colab-container">
+      {% if collection.products_count > 0 %}
+        <div class="colab-grid colab-grid-4">
+          {% for product in collection.products %}
+            <div class="colab-card colab-membership{% if product.handle == 'premium-founder-membership' %} colab-membership--featured{% endif %}">
+              <span class="colab-badge">
+                {% if product.handle == 'day-pass' %}
+                  Flexible Access
+                {% elsif product.handle == 'monthly-recharge-membership' %}
+                  Monthly Rhythm
+                {% elsif product.handle == 'premium-founder-membership' %}
+                  Signature Tier
+                {% elsif product.handle == 'content-recovery-membership' %}
+                  Creator Hybrid
+                {% else %}
+                  Membership
+                {% endif %}
+              </span>
+              <h4 style="margin-top:14px;">{{ product.title }}</h4>
+              <div class="colab-price">
+                {% if product.price > 0 %}
+                  {{ product.price | money }}
+                {% else %}
+                  Contact for pricing
+                {% endif %}
+              </div>
+              <div class="colab-copy">
+                {% if product.description != blank %}
+                  {{ product.description | strip_html | truncatewords: 24 }}
+                {% else %}
+                  Premium access designed to help you recover, refocus, and operate at your highest level.
+                {% endif %}
+              </div>
+              <div class="colab-bestfor">
+                <strong>Best for:</strong>
+                {% if product.handle == 'day-pass' %}
+                  First-time visitors and busy professionals needing a premium reset.
+                {% elsif product.handle == 'monthly-recharge-membership' %}
+                  Founders and professionals building a sustainable monthly recovery routine.
+                {% elsif product.handle == 'premium-founder-membership' %}
+                  Founders, executives, and high performers seeking an elevated ongoing experience.
+                {% elsif product.handle == 'content-recovery-membership' %}
+                  Creators and entrepreneurs balancing visibility with performance.
+                {% else %}
+                  Members who want premium support for energy, focus, and momentum.
+                {% endif %}
+              </div>
+              <div class="colab-membership-actions">
+                <a class="colab-btn {% if product.handle == 'premium-founder-membership' %}colab-btn--primary{% else %}colab-btn--secondary{% endif %}" href="/pages/contact">
+                  {% if product.handle == 'premium-founder-membership' %}
+                    Apply for Founder Membership
+                  {% elsif product.handle == 'day-pass' %}
+                    Book a Day Pass
+                  {% elsif product.handle == 'monthly-recharge-membership' %}
+                    Join Monthly
+                  {% elsif product.handle == 'content-recovery-membership' %}
+                    Explore This Membership
+                  {% else %}
+                    View Membership
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="colab-placeholder">
+          No membership products were found in this collection yet. Add products to the <strong>memberships</strong> collection.
+        </div>
+      {% endif %}
+    </div>
+  </section>
+</section>
+{% schema %}
+{
+  "name": "CoLab Memberships Grid",
+  "settings": []
+}
+{% endschema %}
