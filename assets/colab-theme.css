@@ -680,18 +680,26 @@ img {
     display: none;
   }
 
-  /* Center the store name above the menu */
+  /* One line: store name left, menu right */
   .colab-site-header-inner {
-    justify-content: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
-  .colab-logo {
-    margin: 0 auto;
-    text-align: center;
+  .colab-nav {
+    position: static;
+    transform: none;
+    order: 0;
+    width: auto;
+    flex: 1;
+    justify-content: flex-end;
+    padding-bottom: 0;
+    gap: 0;
   }
 
-  .colab-logo-img {
-    margin: 0 auto;
+  .colab-nav a {
+    padding: 8px 7px;
+    font-size: 13px;
   }
 
   .colab-footer-grid {
