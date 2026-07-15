@@ -63,6 +63,7 @@ img {
 }
 
 .colab-site-header-inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -94,10 +95,13 @@ img {
 
 .colab-nav {
   display: flex;
-  flex: 1;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .colab-nav a {
@@ -657,6 +661,8 @@ img {
   }
 
   .colab-nav {
+    position: static;
+    transform: none;
     order: 3;
     width: 100%;
     justify-content: center;
