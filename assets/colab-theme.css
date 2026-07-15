@@ -685,6 +685,15 @@ img {
     justify-content: center;
   }
 
+  .colab-logo {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .colab-logo-img {
+    margin: 0 auto;
+  }
+
   .colab-footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
