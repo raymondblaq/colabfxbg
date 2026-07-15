@@ -4,21 +4,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
   <title>Gift card &ndash; {{ shop.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
   {{ content_for_header }}
   <style>
-    body { margin: 0; background: #F7F4EE; color: #171717; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; box-sizing: border-box; }
-    .gc-card { width: min(560px, 100%); background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(23, 23, 23, 0.08); border-radius: 28px; box-shadow: 0 20px 60px rgba(23, 23, 23, 0.08); padding: 40px 32px; text-align: center; }
-    .gc-eyebrow { margin: 0 0 14px; font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #8a6944; }
-    h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; }
-    .gc-value { margin: 22px 0 8px; font-size: 44px; font-weight: 800; color: #2E3A32; }
-    .gc-note { color: #5f5a52; font-size: 15px; line-height: 1.7; margin: 8px 0; }
-    .gc-code { display: inline-block; margin: 18px 0; padding: 16px 22px; border-radius: 16px; border: 2px dashed rgba(23, 23, 23, 0.16); background: #ffffff; font-size: 20px; font-weight: 800; letter-spacing: 0.14em; }
+    body { margin: 0; background: #0a0a0a; color: #ededed; font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; box-sizing: border-box; }
+    .gc-card { width: min(560px, 100%); background: #111111; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 40px 32px; text-align: center; }
+    .gc-eyebrow { margin: 0 0 14px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #d4b483; }
+    h1 { margin: 0; font-size: 32px; font-weight: 600; line-height: 1.1; letter-spacing: -0.03em; color: #ededed; }
+    .gc-value { margin: 22px 0 8px; font-size: 40px; font-weight: 600; letter-spacing: -0.02em; color: #ededed; }
+    .gc-note { color: #a1a1a1; font-size: 15px; line-height: 1.65; margin: 8px 0; }
+    .gc-code { display: inline-block; margin: 18px 0; padding: 14px 22px; border-radius: 12px; border: 1px dashed rgba(255, 255, 255, 0.2); background: #0a0a0a; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 18px; font-weight: 500; letter-spacing: 0.12em; color: #ededed; }
     .gc-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-    .gc-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 22px; border-radius: 999px; font-size: 15px; font-weight: 700; text-decoration: none; border: 1px solid transparent; cursor: pointer; font-family: inherit; }
-    .gc-btn--primary { background: #B38A5A; color: #ffffff; }
-    .gc-btn--secondary { background: transparent; color: #171717; border-color: rgba(23, 23, 23, 0.16); }
-    @media print { .gc-actions { display: none; } }
+    .gc-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 24px; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; border: 1px solid transparent; cursor: pointer; font-family: inherit; transition: background-color 0.2s ease, border-color 0.2s ease; }
+    .gc-btn--primary { background: #ffffff; color: #0a0a0a; }
+    .gc-btn--primary:hover { background: #d4d4d4; }
+    .gc-btn--secondary { background: transparent; color: #ededed; border-color: rgba(255, 255, 255, 0.14); }
+    .gc-btn--secondary:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.24); }
+    @media print { .gc-actions { display: none; } body { background: #ffffff; color: #171717; } .gc-card { border-color: rgba(0,0,0,0.1); background: #ffffff; } h1, .gc-value, .gc-code { color: #171717; } }
   </style>
 </head>
 <body>
