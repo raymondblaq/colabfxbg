@@ -668,6 +668,11 @@ img {
 }
 
 @media (max-width: 700px) {
+  /* Menu only on mobile — no search, account, or cart */
+  .colab-header-actions {
+    display: none;
+  }
+
   .colab-footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
