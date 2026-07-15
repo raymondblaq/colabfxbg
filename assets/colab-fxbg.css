@@ -1036,8 +1036,12 @@
   }
 
   .colab-hero-grid {
-    padding: 72px 0 60px;
+    padding: 64px 0 52px;
     gap: 32px;
+  }
+
+  .colab-hero-panel {
+    display: none;
   }
 
   .colab-visual-panel {
@@ -1053,6 +1057,10 @@
 @media (max-width: 560px) {
   .colab-container {
     width: min(100% - 32px, var(--colab-container));
+  }
+
+  .colab-wrap h1 {
+    font-size: clamp(32px, 9.5vw, 40px);
   }
 
   .colab-btn {
