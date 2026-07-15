@@ -680,6 +680,11 @@ img {
     display: none;
   }
 
+  /* Center the store name above the menu */
+  .colab-site-header-inner {
+    justify-content: center;
+  }
+
   .colab-footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
