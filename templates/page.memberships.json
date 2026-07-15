@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "colab-memberships-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
